@@ -1,0 +1,38 @@
+<h1>Listado de ventas</h1>
+<ngx-datatable
+        class="material"
+        columnMode="force"
+        [rows]="rows"
+        [headerHeight]="50"
+        [footerHeight]="50"
+        rowHeight="auto"
+        rowWidth="auto"
+        [externalPaging]="true"
+        [count]="page.totalElements"
+        [offset]="page.pageNumber"
+        [limit]="page.size"
+        (page)="setPage($event)"
+      >
+      <ngx-datatable-column *ngFor="let col of columns" [name]="col.name" [prop]="col.prop" >
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Acciones" prop="id" >
+        <ng-template let-row="data" let-value="value" ngx-datatable-cell-template>
+
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="marcarPagado(value)">
+                <mat-icon>edit</mat-icon>
+                <span>Marcar como pagado</span>
+              </button>
+              <button mat-menu-item (click)="marcarImpago(value)">
+                <mat-icon>edit</mat-icon>
+                <span>Marcar como impago</span>
+              </button>
+            </mat-menu>
+        </ng-template>
+      </ngx-datatable-column>
+
+</ngx-datatable>
+

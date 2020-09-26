@@ -1,0 +1,76 @@
+<br>
+<div class="mat-div">
+  <mat-card class="example-card">
+    <form [formGroup]="registroForm" (ngSubmit)="crearUsuario()">
+      <mat-card-title class="card-title">Registro de usuario</mat-card-title>
+      <br>
+      <mat-form-field appearance="fill" class="field-card">
+        <mat-label>E-Mail</mat-label>
+        <input matInput formControlName="email" type="email" placeholder="E-mail"/>
+        <mat-error *ngIf="registroForm.get('email').hasError('email') && !registroForm.get('email').hasError('required') && registroForm.get('email').dirty">
+          Por favor ingrese una dirección de correo válida
+        </mat-error>
+        <mat-error *ngIf="registroForm.get('email').hasError('required') && registroForm.get('email').dirty">
+          Email es <strong>obligatorio</strong>
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill" class="field-card">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="nombre" type="text" placeholder="Nombre"/>
+        <mat-error *ngIf="registroForm.get('nombre').hasError('required') && registroForm.get('nombre').dirty">
+          Nombre es <strong>obligatorio</strong>
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill" class="field-card">
+        <mat-label>Apellido</mat-label>
+        <input matInput formControlName="apellido" type="text" placeholder="Apellido"/>
+        <mat-error *ngIf="registroForm.get('apellido').hasError('required') && registroForm.get('apellido').dirty">
+          Apellido es <strong>obligatorio</strong>
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill" class="field-card">
+        <mat-label>CUIL</mat-label>
+        <input matInput formControlName="cuil" type="text" placeholder="CUIL"/>
+        <mat-error *ngIf="registroForm.get('cuil').hasError('required') && registroForm.get('cuil').dirty">
+          CUIL es <strong>obligatorio</strong>
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill" class="field-card">
+        <mat-label>Contraseña</mat-label>
+        <input matInput formControlName="password" type="password" placeholder="Contraseña"/>
+        <mat-error *ngIf="registroForm.get('password').hasError('required') && registroForm.get('password').dirty">
+          Contraseña es <strong>obligatorio</strong>
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill" class="field-card">
+        <mat-label>Repetir contraseña</mat-label>
+        <input matInput formControlName="password_repeat" type="password" placeholder="Repetir contraseña"/>
+        <mat-error *ngIf="registroForm.get('password_repeat').hasError('required') && registroForm.get('password_repeat').dirty">
+          Repetir la contraseña es <strong>obligatorio</strong>
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <div class="button-div">
+        <button mat-raised-button color="primary" type="submit"  [disabled]="registroForm.invalid">Registrar</button>
+      </div>
+      <mat-error *ngIf="passwordNoMatch">
+      <br>
+        Las contraseñas no coinicden
+      </mat-error>
+      <mat-error *ngIf="errorEnRegistro">
+        <br>
+        Error al intentar registrar el usuario
+      </mat-error >
+      <mat-label *ngIf="registroConExito" style="color:green">
+        <br>
+        Usuario registrado con éxito
+      </mat-label>
+    </form>
+
+  </mat-card>
+</div>

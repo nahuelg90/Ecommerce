@@ -1,0 +1,28 @@
+
+<mat-tab-group [selectedIndex]="selectedIndex">
+
+<mat-tab label="Alta de categoría">
+    <!-- utilizo ng-template porque quiero hacer lazy loading https://material.angular.io/components/tabs/overview#lazy-loading -->
+    <ng-template matTabContent>
+      <app-alta-categoria></app-alta-categoria>
+    </ng-template>
+
+  </mat-tab>
+  <mat-tab label="Eliminar una categoría">
+    <ng-template matTabContent>
+      <app-baja-categoria></app-baja-categoria>
+    </ng-template>
+
+  </mat-tab>
+  <mat-tab label="Modificar una categoría">
+    <ng-template matTabContent>
+      <app-modificacion-categoria></app-modificacion-categoria>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="Ver las categorías">
+    <ng-template matTabContent>
+      <app-vista-categorias></app-vista-categorias>
+    </ng-template>
+
+  </mat-tab>
+</mat-tab-group>

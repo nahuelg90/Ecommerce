@@ -1,0 +1,59 @@
+<h1>Dar de baja un producto</h1>
+<div class="mat-div">
+  <mat-card class="example-card">
+    <form [formGroup]="productoForm" (ngSubmit)="eliminarProducto()">
+        <mat-form-field appearance="fill">
+          <mat-label>ID de producto </mat-label>
+          <input matInput formControlName="id" type="text" placeholder="ID de prducto" (keyup)="handleOnKey($event)" (focusout)="handleOnFocusOut($event)"/>
+          <mat-hint align="start">Presionar Enter o sacarle foco al input</mat-hint>
+
+        </mat-form-field>
+        <mat-label [ngStyle]="{'color':'red'}" *ngIf="productoNoEncontrado">
+          <br>
+          No se encontró el producto
+        </mat-label>
+        <br>
+      <mat-form-field appearance="fill">
+        <mat-label>Nombre de producto </mat-label>
+        <input matInput formControlName="denominacion" type="text" placeholder="Nombre del producto"/>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>SKU </mat-label>
+        <input matInput formControlName="SKU" type="text" placeholder="SKU del producto"/>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>Precio </mat-label>
+        <span matPrefix>$ &nbsp;</span>
+        <input matInput formControlName="precio" type="number" placeholder="Precio del producto"/>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>Precio de oferta</mat-label>
+        <span matPrefix>$ &nbsp;</span>
+        <input matInput formControlName="precioDeOferta" type="number" placeholder="Precio de oferta del producto"/>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>Descripción del producto</mat-label>
+        <textarea matInput formControlName="descripcion" placeholder="Descripción del producto"></textarea>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill" *ngIf = "loadedCategorias">
+        <mat-label>Categoría del producto </mat-label>
+        <mat-select formControlName="categoria">
+          <mat-option option *ngFor="let categoria of categorias" [value]="categoria._id">{{categoria.descripcion}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br>
+      <div class="button-div">
+        <button mat-raised-button color="primary" type="submit"  [disabled]="botonDeshabilitado">Eliminar producto</button>
+      </div>
+      <mat-error *ngIf="errorDeEliminacion">
+        <mat-label >{{mensajeError}}</mat-label>
+      </mat-error>
+    </form>
+  </mat-card>
+</div>
+

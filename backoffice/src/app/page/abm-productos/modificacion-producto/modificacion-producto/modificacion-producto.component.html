@@ -1,0 +1,102 @@
+<h1>Modificar un producto</h1>
+<div class="mat-div">
+  <mat-card class="example-card">
+    <form [formGroup]="productoForm" (ngSubmit)="modificarProducto()">
+      <mat-form-field appearance="fill">
+        <mat-label>ID de producto </mat-label>
+        <input matInput formControlName="id" type="text" placeholder="ID de prducto" (keyup)="handleOnKey($event)" (focusout)="handleOnFocusOut($event)"/>
+        <mat-hint align="start">Presionar Enter o sacarle foco al input</mat-hint>
+
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Nombre de producto </mat-label>
+        <input matInput formControlName="denominacion" type="text" placeholder="Nombre del producto"/>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>SKU </mat-label>
+        <input matInput formControlName="SKU" type="text" placeholder="SKU del producto"/>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>Precio </mat-label>
+        <span matPrefix>$ &nbsp;</span>
+        <input matInput formControlName="precio" type="number" placeholder="Precio del producto"/>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>Precio de oferta</mat-label>
+        <span matPrefix>$ &nbsp;</span>
+        <input matInput formControlName="precioDeOferta" type="number" placeholder="Precio de oferta del producto"/>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>Descripción del producto</mat-label>
+        <textarea matInput formControlName="descripcion" placeholder="Descripción del producto"></textarea>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill" *ngIf = "loadedCategorias">
+        <mat-label>Categoría del producto </mat-label>
+        <mat-select formControlName="categoria">
+          <mat-option option *ngFor="let categoria of categorias" [value]="categoria._id">{{categoria.descripcion}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>Cantidad disponible</mat-label>
+        <input matInput formControlName="cantidad" type="number" placeholder="Cantidad disponible del producto"/>
+      </mat-form-field>
+      <br>
+      <mat-checkbox formControlName="destacado"> ¿Destacado? </mat-checkbox>
+      <br>
+      <mat-checkbox formControlName="enOferta"> ¿En oferta? </mat-checkbox>
+      <br>
+      <mat-label>Tags de búsqueda</mat-label>
+      <br>
+      <mat-form-field class="example-chip-list">
+        <mat-chip-list #chipList label="Tags de búsqueda" >
+          <mat-chip *ngFor="let tag of tags_v" [selectable]="selectable"
+                   [removable]="removable" (removed)="remove(tag)">
+            {{tag.tag}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input placeholder="Nuevo tag"
+                 [matChipInputFor]="chipList"
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                 [matChipInputAddOnBlur]="addOnBlur"
+                 (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+      <br>
+      </mat-form-field>
+      <br>
+        <tr *ngFor="let image of imagenes">
+          <mat-list-item >
+            <mat-card class="img_wrp">
+              <img mat-card-image src="{{image.pathArchivo}}"/>
+              <img class="close" src="assets/closeicon.png" (click)="removeImage(image)"/>
+            </mat-card>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+        </tr>
+      <br>
+      <input type="file" name="photo" ng2FileSelect [uploader]="uploader" multiple/>
+      <tr *ngFor="let item of uploader.queue">
+          <td><strong>{{ item?.file?.name }}</strong></td>
+          <td nowrap>
+
+              <button type="button" class="btn btn-danger btn-xs"
+                      (click)="item.remove()">
+                  <span class="glyphicon glyphicon-trash"></span> Remove
+              </button>
+          </td>
+      </tr>
+      <br>
+      <div class="button-div">
+        <button mat-raised-button color="primary" type="submit"  [disabled]="botonDeshabilitado">Modificar producto</button>
+      </div>
+      <mat-error *ngIf="errorDeCreacion">
+        <mat-label >{{mensajeError}}</mat-label>
+      </mat-error>
+    </form>
+  </mat-card>
+</div>

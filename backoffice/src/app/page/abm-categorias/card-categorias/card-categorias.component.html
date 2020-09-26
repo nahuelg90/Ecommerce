@@ -1,0 +1,14 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{categoria.descripcion}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <label *ngIf="categoria.categoriaPadre != null">Categoría padre: {{categoria.categoriaPadre.descripcion}}</label>
+    <div *ngIf="categoria.categoriasHijas.length > 0">
+      <label>Categorías hijas:</label>
+      <mat-list>
+        <mat-list-item *ngFor="let categoriaHija of categoria.categoriasHijas"> {{categoriaHija.descripcion}} </mat-list-item>
+       </mat-list>
+    </div>
+  </mat-card-content>
+</mat-card>

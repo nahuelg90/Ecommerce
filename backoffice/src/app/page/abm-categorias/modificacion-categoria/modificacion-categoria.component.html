@@ -1,0 +1,41 @@
+<h1>Modificar una categoría</h1>
+<div class="mat-div">
+  <mat-card  class="example-card">
+    <form [formGroup]="categoriaForm" (ngSubmit)="modificarCategoria()">
+      <mat-form-field appearance="fill">
+        <mat-label>ID de categoría </mat-label>
+        <input matInput formControlName="id" type="text" placeholder="ID de categoría" (keyup)="handleOnKey($event)" (focusout)="handleOnFocusOut($event)"/>
+        <mat-hint align="start">Presionar Enter o sacarle foco al input</mat-hint>
+        <mat-error *ngIf="categoriaNoEncontrada">
+          No se encontró la categoría
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>Nombre de categoría </mat-label>
+        <input matInput formControlName="descripcion" type="text" placeholder="Nombre de categoría"/>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill" *ngIf = "loadedCategorias">
+        <mat-label>Categoría padre </mat-label>
+        <mat-select  formControlName="categoriaPadre">
+          <mat-option [value]="null">Ninguna</mat-option>
+          <mat-option option *ngFor="let categoria of categorias" [value]="categoria._id">{{categoria.descripcion}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill" *ngIf = "loadedCategoriasHijas">
+        <mat-label>Categorías hijas </mat-label>
+        <mat-select formControlName="categoriasHijas" multiple>
+          <mat-option [value]="null">Ninguna</mat-option>
+          <mat-option *ngFor="let categoria of categoriasSinPadre" [value]="categoria._id">{{categoria.descripcion}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br>
+      <div class="button-div">
+        <button mat-raised-button color="primary" type="submit"  [disabled]="categoriaForm.invalid || categoriaNoCargada">Modificar categoría</button>
+      </div>
+    </form>
+  </mat-card>
+</div>
+

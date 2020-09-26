@@ -1,0 +1,20 @@
+.mat-div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.example-card {
+  max-width: 400px;
+  min-width: 300px;
+}
+
+mat-form-field {
+  width: 100%;
+}

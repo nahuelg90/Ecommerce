@@ -1,0 +1,47 @@
+<h1>Ver las categorías</h1>
+<!-- <app-card-categorias *ngFor="let categoria of categorias" [categoria]="categoria"></app-card-categorias> -->
+<ngx-datatable
+        class="material"
+        style="height: 100%"
+        [columnMode]="ColumnMode.force"
+        [headerHeight]="50"
+        [footerHeight]="0"
+        [rowHeight]="50"
+        [scrollbarV]="true"
+        [scrollbarH]="true"
+        [rows]="rows"
+        [treeFromRelation]="'categoriaPadre._id'"
+        [treeToRelation]="'_id'"
+        (treeAction)="onTreeAction($event)"
+      >
+        <ngx-datatable-column name="Id" prop="_id" [flexGrow]="3" [isTreeColumn]="true">
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            {{ value }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Nombre" prop="descripcion" [flexGrow]="1">
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            {{ value }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Acciones" prop="_id" >
+          <ng-template let-row="data" let-value="value" ngx-datatable-cell-template>
+
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+              <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item routerLink="/editar-categoria/{{value}}">
+                  <mat-icon>edit</mat-icon>
+                  <span>Modificar</span>
+                </button>
+                <button mat-menu-item routerLink="/eliminar-categoria/{{value}}">
+                  <mat-icon>delete_forever</mat-icon>
+                  <span>Eliminar</span>
+                </button>
+              </mat-menu>
+          </ng-template>
+        </ngx-datatable-column>
+
+</ngx-datatable>
+
